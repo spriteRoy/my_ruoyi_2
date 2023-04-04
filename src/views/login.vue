@@ -16,7 +16,7 @@
       </el-form-item>
       <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
        <el-form-item style="width:100%">
-        <el-button type="primary" style="width:100%">
+        <el-button type="primary" style="width:100%" @click="handleLogin">
           <span>登录</span>
         </el-button>
        </el-form-item>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { getCodeImg } from "@/api/login";
+import { getCodeImg,login } from "@/api/login";
 export default {
   data () {
     return {
@@ -38,6 +38,7 @@ export default {
         password: "",
         rememberMe: false,
         code: "",
+        uuid:''
       },
       captchaEnabled:true,
     }
@@ -51,8 +52,19 @@ export default {
         // https://betheme.net/dashuju/59246.html?action=onClick
         if (this.captchaEnabled) {
           this.codeUrl = "data:image/gif;base64," + res.img;
+          this.loginForm.uuid = res.uuid;
         }
 
+      })
+    },
+    handleLogin(){
+      const username = this.loginForm.username
+      const password = this.loginForm.password
+      const code = this.loginForm.code
+      const uuid = this.loginForm.uuid
+      login(username,password,code,uuid).then(res => {
+        console.log('登录被点击了');
+        console.log(res);
       })
     }
   },
