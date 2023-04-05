@@ -5,6 +5,9 @@ export function getCodeImg(){
   return request({
     url:'/captchaImage',
     method:'get',
+    headers: {
+      notToken: true
+    },
     timeout:2000
   })
 }
@@ -20,6 +23,10 @@ export function login(username,password,code,uuid){
   return request({
     url:'/login',
     method:'post',
+    // 不要写错位置，注意：headers是小写的h
+    headers: {
+      notToken: true
+    },
     data
   })
 }
@@ -28,6 +35,6 @@ export function login(username,password,code,uuid){
 export function getInfo() {
   return request({
     url: '/getInfo',
-    method: 'get'
+    method: 'get',
   })
 }
