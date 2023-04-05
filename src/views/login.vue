@@ -99,14 +99,12 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          const username = this.loginForm.username;
-          const password = this.loginForm.password;
-          const code = this.loginForm.code;
-          const uuid = this.loginForm.uuid;
-          login(username, password, code, uuid).then((res) => {
-            console.log("登录被点击了");
-            console.log(res);
-          });
+          // 如何保证登录成功之后可以调用到then方法?
+          //   答：在Login方法中返回Promise对象
+          this.$store.dispatch('Login',this.loginForm).then((resA) => {
+            console.log('登录按钮被点击了');
+            console.log(resA);
+          })
         } else {
           console.log("shibai");
         }
