@@ -1,19 +1,31 @@
 import router from "./router";
 import { getToken } from "./utils/auth";
-
-
-// if (to.path === '/login') {
-//   next('/')
-// }else{
-//   next()
-// }
+import store from '@/store/index.js'
+import { Message } from "element-ui";
 
 const whiteList = ['/login', '/register']
 router.beforeEach((to,from,next) => {
   console.log('to');
   console.log(to);
   if (getToken()) {
-    next()
+    if (to.path === '/login') {
+      // ----------------------------
+      next()
+    } else {
+      // 判断是否已经获取到用户信息
+      if (store.getters.roles.length === 0) {
+        console.log('获取用户信息');
+        store.dispatch('GetInfo').then(res => {
+          console.log('打印用户信息');
+          console.log(res);
+          next()
+        }).catch(err => {
+          Message.error(err)
+        })
+      } else {
+        next()
+      }
+    }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       next()

@@ -1,8 +1,9 @@
-import { login } from '@/api/login'
+import { login,getInfo } from '@/api/login'
 import {setToken,getToken} from '@/utils/auth.js'
+
 const state = {
   token: getToken(),
-
+  roles: [],
 }
 const mutations = {
   SET_TOKEN: (state, token) => {
@@ -29,7 +30,16 @@ const actions = {
         reject(error)
       });
     })
-
+  },
+  // 获取用户信息
+  GetInfo({ commit }){
+    return new Promise((resolve,reject) => {
+      getInfo().then(res => {
+        resolve(res)
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 }
 const user = {

@@ -23,3 +23,11 @@ export function login(username,password,code,uuid){
     data
   })
 }
+
+// 获取用户信息
+export function getInfo() {
+  return request({
+    url: '/getInfo',
+    method: 'get'
+  })
+}
