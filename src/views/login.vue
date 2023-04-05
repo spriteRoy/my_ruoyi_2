@@ -102,11 +102,14 @@ export default {
           // 如何保证登录成功之后可以调用到then方法?
           //   答：在Login方法中返回Promise对象
           this.$store.dispatch('Login',this.loginForm).then((resA) => {
+            this.$router.push('/')
             console.log('登录按钮被点击了');
             console.log(resA);
           }).catch(err => {
             console.log('失败');
             console.log(err);
+            // 登录失败，重新获取一个验证码
+            this.getCode()
           })
         } 
       });
