@@ -104,10 +104,11 @@ export default {
           this.$store.dispatch('Login',this.loginForm).then((resA) => {
             console.log('登录按钮被点击了');
             console.log(resA);
+          }).catch(err => {
+            console.log('失败');
+            console.log(err);
           })
-        } else {
-          console.log("shibai");
-        }
+        } 
       });
     },
   },

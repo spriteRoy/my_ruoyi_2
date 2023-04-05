@@ -19,8 +19,11 @@ const actions = {
     return new Promise((resolve, reject) => {
       login(username, password, code, uuid).then((resA) => {
         commit('SET_TOKEN', resA.token)
-        // 在成功的逻辑里面写resolve()，在调用Login方法的then里面就可以处理后续的逻辑,其中，resolve()里面的参数将会传递给调用Login方法的then方法
+        // 在成功的逻辑里面写resolve()，在调用Login方法的then方法里面就可以处理后续的逻辑,其中，resolve()里面的参数将会传递给调用Login方法的then方法
         resolve(resA)
+      }).catch(error => {
+        // 在失败的逻辑里面写reject()，在调用Login方法的catch方法里面就可以处理后续的逻辑,其中，reject()里面的参数将会传递给调用Login方法的catch方法
+        reject(error)
       });
     })
 
@@ -32,3 +35,7 @@ const user = {
   actions
 }
 export default user
+
+
+
+
