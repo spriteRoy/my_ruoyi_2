@@ -79,6 +79,7 @@ export default {
         ],
         code: [{ required: true, trigger: "change", message: "请输入验证码" }],
       },
+      redirect:undefined
     };
   },
   methods: {
@@ -102,9 +103,7 @@ export default {
           // 如何保证登录成功之后可以调用到then方法?
           //   答：在Login方法中返回Promise对象
           this.$store.dispatch('Login',this.loginForm).then((resA) => {
-            this.$router.push('/')
-            console.log('登录按钮被点击了');
-            console.log(resA);
+            this.$router.push({ path: this.redirect || "/" })
           }).catch(err => {
             console.log('失败');
             console.log(err);
@@ -113,6 +112,15 @@ export default {
           })
         } 
       });
+    },
+  },
+   watch: {
+    $route: {
+      handler: function (route) {
+        this.redirect = route.query && route.query.redirect;
+      },
+      // 保证第一次加载页面就会触发该侦听器
+      immediate: true,
     },
   },
   created() {

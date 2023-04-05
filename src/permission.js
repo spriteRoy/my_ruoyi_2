@@ -2,21 +2,25 @@ import router from "./router";
 import { getToken } from "./utils/auth";
 
 
+// if (to.path === '/login') {
+//   next('/')
+// }else{
+//   next()
+// }
+
 const whiteList = ['/login', '/register']
 router.beforeEach((to,from,next) => {
-  console.log('token的值',getToken());
-  console.log('to.path',to.path);
+  console.log('to');
+  console.log(to);
   if (getToken()) {
-    if (to.path === '/login') {
-      next('/')
-    }else{
-      next()
-    }
+    next()
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      next('/login')
+      // next('/login')
+      next(`/login?redirect=${to.fullPath}`)
+      
     }
   }
 })
