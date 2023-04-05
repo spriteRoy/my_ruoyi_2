@@ -18,7 +18,9 @@ const actions = {
     const uuid = userInfo.uuid;
     return new Promise((resolve, reject) => {
       login(username, password, code, uuid).then((resA) => {
+        // 将token进行本地存储
         setToken(resA.token)
+        // 将token设置给vuex
         commit('SET_TOKEN', resA.token)
         // 在成功的逻辑里面写resolve()，在调用Login方法的then方法里面就可以处理后续的逻辑,其中，resolve()里面的参数将会传递给调用Login方法的then方法
         resolve(resA)
