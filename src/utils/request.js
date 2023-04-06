@@ -58,7 +58,7 @@ service.interceptors.response.use(res => {
     message = '系统接口' + message.substr(message.length - 3) + '异常'
   } 
   Message({
-    message:message,
+    message:error,
     type:'error',
     duration:5*1000
   })
