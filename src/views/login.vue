@@ -105,8 +105,6 @@ export default {
           this.$store.dispatch('Login',this.loginForm).then((resA) => {
             this.$router.push({ path: this.redirect || "/" })
           }).catch(err => {
-            console.log('失败');
-            console.log(err);
             // 登录失败，重新获取一个验证码
             this.getCode()
           })
@@ -116,6 +114,7 @@ export default {
   },
    watch: {
     $route: {
+      // 问题：route参数是谁传递过来的
       handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },
