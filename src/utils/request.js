@@ -22,6 +22,13 @@ service.interceptors.request.use(config => {
   }
   // 最后一定要返回config
   return config
+},error => {
+  Message({
+    message:message,
+    type:'error',
+    duration:5*1000
+  })
+  return Promise.reject(error)
 })
 
 // 响应拦截器
@@ -35,15 +42,30 @@ service.interceptors.response.use(res => {
       message:msg,
       type:'error'
     })
-    // return Promise.reject(new Error(msg))
-    return Promise.reject(new Error('code值为500'))
+    return Promise.reject(new Error(msg))
   } else if (code !== 200) {
     // return Promise.reject(new Error(msg))
-    return Promise.reject(new Error('code值不等于500，也不等于200'))
+    return Promise.reject(new Error('err'))
   } 
   else {
     return res.data
   }
+},error => {
+  let { message } = error
+  if (message.includes('timeout')) {
+    message = '系统接口请求超时'
+  } else if (message.includes('Request failed with status code')) {
+    message = '系统接口' + message.substr(message.length - 3) + '异常'
+  } 
+  Message({
+    message:message,
+    type:'error',
+    duration:5*1000
+  })
+  // 将请求的延迟时间设置为200，就会进入此函数执行
+  console.log('message');
+  console.log(message);
+  return Promise.reject(error)
 })
 
 export default service

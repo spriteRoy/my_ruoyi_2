@@ -115,6 +115,7 @@ export default {
    watch: {
     $route: {
       // 问题：route参数是谁传递过来的
+      //   答:watch的参数,新值  旧值
       handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },

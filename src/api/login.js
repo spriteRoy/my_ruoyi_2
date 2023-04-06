@@ -8,7 +8,7 @@ export function getCodeImg(){
     headers: {
       notToken: true
     },
-    timeout:2000
+    timeout:20
   })
 }
 
