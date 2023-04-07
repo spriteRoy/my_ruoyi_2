@@ -106,7 +106,9 @@ export default {
             this.$router.push({ path: this.redirect || "/" })
           }).catch(err => {
             // 登录失败，重新获取一个验证码
-            this.getCode()
+            if (this.captchaEnabled) {
+              this.getCode()
+            }
           })
         } 
       });

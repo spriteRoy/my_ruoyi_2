@@ -8,7 +8,7 @@ export function getCodeImg(){
     headers: {
       notToken: true
     },
-    timeout:2000
+    timeout:20000
   })
 }
 
@@ -36,5 +36,13 @@ export function getInfo() {
   return request({
     url: '/getInfo',
     method: 'get',
+  })
+}
+
+// 登出方法
+export function logout() {
+  return request({
+    url: '/logout',
+    method: 'post'
   })
 }

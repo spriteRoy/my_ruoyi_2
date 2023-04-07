@@ -1,7 +1,10 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Message,MessageBox } from 'element-ui'
 import { getToken } from './auth'
+import store from '@/store/index.js'
 
+// 是否已经显示MessageBox弹窗的标识
+let isRelogin = { show: false };
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
   baseURL: process.env.VUE_APP_BASE_URL,
@@ -15,10 +18,7 @@ service.interceptors.request.use(config => {
   // 并不是所有的请求都需要携带token，比如：登录请求
   const notToken = (config.headers || {}).notToken === true
   if (getToken() && !notToken) {
-    console.log('进来了吗');
     config.headers['Authorization'] = 'Bearer ' + getToken()
-    console.log('config');
-    console.log(config);
   }
   // 最后一定要返回config
   return config
@@ -36,6 +36,22 @@ service.interceptors.response.use(res => {
   const code = res.data.code
   const msg = res.data.msg
   if (code === 401) {
+    // 如果有好几个接口都返回401就会重复的出现该弹框,通过isRelogin标识保证弹框只会出现一次
+    if (!isRelogin.show) {
+      isRelogin.show = true
+      MessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示',{
+        confirmButtonText:'重新登录',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        isRelogin.show = false
+        store.dispatch('Logout').then(() => {
+          location.href = '/'
+        })
+      }).catch(() => {
+        isRelogin.show = false
+      })
+    }
     return Promise.reject(new Error('无效的会话，或者会话已过期，请重新登录。'))
   } else if (code === 500) {
     Message({
@@ -44,7 +60,6 @@ service.interceptors.response.use(res => {
     })
     return Promise.reject(new Error(msg))
   } else if (code !== 200) {
-    // return Promise.reject(new Error(msg))
     return Promise.reject(new Error('err'))
   } 
   else {
@@ -63,8 +78,8 @@ service.interceptors.response.use(res => {
     duration:5*1000
   })
   // 将请求的延迟时间设置为200，就会进入此函数执行
-  console.log('message');
-  console.log(message);
+  // console.log('message');
+  // console.log(message);
   return Promise.reject(error)
 })
 

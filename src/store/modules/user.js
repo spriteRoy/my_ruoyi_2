@@ -1,5 +1,5 @@
-import { login,getInfo } from '@/api/login'
-import {setToken,getToken} from '@/utils/auth.js'
+import { login,getInfo,logout } from '@/api/login'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const state = {
   token: getToken(),
@@ -62,6 +62,19 @@ const actions = {
         commit('SET_AVATAR', avatar)
         resolve(res)
       }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  Logout({commit,state}){
+    return new Promise((resolve,reject) => {
+      logout().then(() => {
+        commit('SET_TOKEN', '')
+          commit('SET_ROLES', [])
+          commit('SET_PERMISSIONS', [])
+          removeToken()
+          resolve()
+      }).catch((error) => {
         reject(error)
       })
     })
