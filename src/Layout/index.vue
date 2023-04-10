@@ -16,6 +16,7 @@ import Sidebar from './components/Sidebar/index.vue'
 import TagsView from './components/TagsView/index.vue'
 import AppMain from  './components/AppMain.vue'
 import Navbar from './components/Navbar.vue'
+
 export default {
   name:'Layout',
   components: {
@@ -23,7 +24,8 @@ export default {
     AppMain,
     TagsView,
     Sidebar
-  }
+  },
+ 
 }
 </script>
 

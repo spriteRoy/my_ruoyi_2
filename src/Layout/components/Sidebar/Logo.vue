@@ -21,11 +21,11 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
 .sidebar-logo-container{
   width: 100%;
   height: 50px;
   text-align: center;
-  background-color:#777;
   & .sidebar-logo-link{
     display: inline-block;
     
