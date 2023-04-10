@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Sidebar></Sidebar>
+  <div class="app-wrapper">
+    <Sidebar class="sidebar-container"></Sidebar>
     <div>
       <div>
         <Navbar></Navbar>
@@ -27,6 +27,17 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped lang='scss'>
+// import前面要加@
+@import '~@/assets/styles/variables.scss';
+.app-wrapper{
+  width: 100%;
+  height: 100%;
+}
+.sidebar-container{
+  width: 200px;
+  height: 100%;
+  background-color: $base-menu-background;
+  position: fixed;
+}
 </style>

@@ -1,10 +1,19 @@
 <template>
-  <div>Sidebar</div>
+<div>
+  <Logo></Logo>
+  <el-scrollbar>
+    menu
+  </el-scrollbar>
+</div>
 </template>
 
 <script>
+import Logo from './Logo.vue'
 export default {
-  name:'Sidebar'
+  name:'Sidebar',
+  components:{
+    Logo
+  }
 }
 </script>
 
