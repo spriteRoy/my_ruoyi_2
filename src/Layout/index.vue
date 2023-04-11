@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <Sidebar class="sidebar-container"></Sidebar>
-    <div>
+    <div class="main-container">
       <div>
         <Navbar></Navbar>
         <TagsView></TagsView>
@@ -41,5 +41,8 @@ export default {
   height: 100%;
   background-color: $base-menu-background;
   position: fixed;
+}
+.main-container{
+  margin-left: 200px;
 }
 </style>
