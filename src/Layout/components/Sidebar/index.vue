@@ -27,6 +27,8 @@ export default {
     Logo,
     SidebarItem,
   },
+  // 脚手架组件中 data 为什么必须是函数？
+  // 因为 JS 本身的特性带来的，如果 data 是一个对象，那么由于对象本身属性引用类型，当我们修改其中一个属性时，会影响到所有 Vue 实例的数据。如果将 data 作为一个函数返回一个对象，那么每一个实例的 data属性都是独立的，不会相互影响
   data() {
     return {
       sidebarRouters: [

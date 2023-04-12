@@ -1,9 +1,14 @@
 <template>
   <div v-if="!item.hidden">
     <!-- 设置 :index="item.path" 后（两处），菜单不会联动，可删除该属性观看效果 -->
-    <el-menu-item :index="item.path" v-if="!item.children">
+    <template  v-if="!item.children">
+      <AppLink :to="item.path">
+         <el-menu-item :index="item.path" v-if="!item.children">
       <menu-item icon="item.menu.icon" :title="item.meta.title"></menu-item>
     </el-menu-item>
+      </AppLink>
+    </template>
+   
     <el-submenu v-else :index="item.path">
       <template slot="title">
         <menu-item icon="item.menu.icon" :title="item.meta.title"></menu-item>
@@ -20,6 +25,7 @@
 
 <script>
 import MenuItem from './Item.vue'
+import AppLink from './Link'
 export default {
   name: "SidebarItem",
   props: {
@@ -29,7 +35,7 @@ export default {
     },
   },
   components: {
-    MenuItem
+    MenuItem,AppLink
   }
 };
 </script>

@@ -1,3 +1,4 @@
+// vue组件中template标签中写模板
 <script>
 export default {
   name: 'MenuItem',
