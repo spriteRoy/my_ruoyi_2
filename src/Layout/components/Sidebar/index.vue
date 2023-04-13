@@ -14,7 +14,7 @@
 <script>
 import Logo from "./Logo.vue";
 import variables from "@/assets/styles/variables.scss";
-import SidebarItem from './SidebarItem.vue'
+import SidebarItem from "./SidebarItem.vue";
 export default {
   name: "Sidebar",
   components: {
