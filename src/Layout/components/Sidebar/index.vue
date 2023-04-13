@@ -3,14 +3,8 @@
     <Logo></Logo>
     <el-scrollbar>
       <!-- unique-opened="true" -->
-      <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        :background-color="variables.menuBackground"
-        text-color="#fff"
-        :unique-opened="false"
-        active-text-color="#ffd04b"
-      >
+      <el-menu default-active="2" class="el-menu-vertical-demo" :background-color="variables.menuBackground"
+        text-color="yellow" :unique-opened="false" active-text-color="#ffd04b">
         <SidebarItem></SidebarItem>
       </el-menu>
     </el-scrollbar>
@@ -24,7 +18,7 @@ import SidebarItem from './SidebarItem.vue'
 export default {
   name: "Sidebar",
   components: {
-    Logo,SidebarItem
+    Logo, SidebarItem
   },
   methods: {},
   computed: {
@@ -36,7 +30,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.el-scrollbar{
+.el-scrollbar {
   height: calc(100% - 50px);
 }
 </style>
